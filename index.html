@@ -4,124 +4,582 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>ДПС Железногорск Мониторинг</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-body{background:#f0f2f5;color:#333;padding:15px}
-.main-layout{display:flex;flex-direction:column;max-width:900px;margin:0 auto;gap:15px}
-.container{flex:1;max-width:500px;width:100%;margin:0 auto;background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,.05)}
-.ad-block{background:#fffbeb;border:2px dashed #f59e0b;border-radius:16px;overflow:hidden;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.05);display:flex;flex-direction:column;justify-content:center;position:relative;min-height:150px}
-#adPoster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;z-index:2}
-.ad-content{padding:20px;z-index:1}
-.ad-title{font-size:13px;font-weight:bold;color:#b45309;text-transform:uppercase;margin-bottom:8px}
-.ad-text{font-size:15px;margin-bottom:10px}
-.ad-link{display:inline-block;background:#007bff;color:#fff;text-decoration:none;padding:8px 16px;border-radius:20px;font-weight:bold;font-size:14px}
-@media(min-width:768px){
-    .main-layout{flex-direction:row-reverse;align-items:flex-start;justify-content:center}
-    .ad-block{width:300px;min-height:300px;position:sticky;top:15px}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif
 }
-h2{text-align:center;margin-bottom:20px;font-size:20px}
-h3{font-size:17px}
-label{font-weight:bold;display:block;margin-top:15px;margin-bottom:5px;font-size:14px}
-select,input,button{width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;font-size:16px;margin-bottom:10px;outline:none}
-button{cursor:pointer}
-.btn-send{background:#007bff;color:#fff;border:none;font-weight:bold;height:50px}
-.btn-send:active{background:#0056b3}
-.feed-item{background:#f8f9fa;border-left:5px solid #007bff;padding:12px;border-radius:8px;margin-bottom:10px}
-.feed-location{font-weight:bold;font-size:16px}
-.feed-car{color:#dc3545;font-weight:bold;margin-top:3px}
-.feed-time{font-size:11px;color:#777;margin-top:5px}
-.status-panel{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px dashed #ddd}
-.vote-btn{width:auto;padding:6px 12px;font-size:12px;margin:0;border:none;border-radius:6px;font-weight:bold}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;align-items:center;justify-content:center;padding:15px}
-.popup{background:#fff;padding:25px;border-radius:20px;width:100%;max-width:420px;text-align:center;max-height:90vh;overflow-y:auto}
-.admin-list{text-align:left;max-height:180px;overflow-y:auto;margin:15px 0;border:1px solid #eee;padding:8px;border-radius:8px}
-.admin-loc-item{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #eee;font-size:13px}
-.del-btn{color:#dc3545;cursor:pointer;font-weight:bold;border:none;background:none;width:auto;margin:0;padding:0}
-.btn-admin-trigger{background:none;border:none;color:#adb5bd;font-size:10px;margin-top:30px;cursor:pointer}
-.hidden{display:none!important}
-.row{display:flex;gap:10px}
-.row button{flex:1}
-.error{color:#dc3545;font-size:13px;margin-top:8px}
-.success{color:#198754;font-size:13px;margin-top:8px}
-.empty{text-align:center;color:#777;padding:20px 5px}
+
+body{
+    background:#f0f2f5;
+    color:#333;
+    padding:15px
+}
+
+.main-layout{
+    display:flex;
+    flex-direction:column;
+    max-width:900px;
+    margin:0 auto;
+    gap:15px
+}
+
+.container{
+    flex:1;
+    max-width:500px;
+    width:100%;
+    margin:0 auto;
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.05)
+}
+
+.ad-block{
+    background:#fffbeb;
+    border:2px dashed #f59e0b;
+    border-radius:16px;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+    min-height:150px
+}
+
+#adPoster{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:none;
+    z-index:2
+}
+
+.ad-content{
+    padding:20px;
+    z-index:1
+}
+
+.ad-title{
+    font-size:13px;
+    font-weight:bold;
+    color:#b45309;
+    text-transform:uppercase;
+    margin-bottom:8px
+}
+
+.ad-text{
+    font-size:15px;
+    margin-bottom:10px
+}
+
+.ad-link{
+    display:inline-block;
+    background:#007bff;
+    color:#fff;
+    text-decoration:none;
+    padding:8px 16px;
+    border-radius:20px;
+    font-weight:bold;
+    font-size:14px
+}
+
+@media(min-width:768px){
+    .main-layout{
+        flex-direction:row-reverse;
+        align-items:flex-start;
+        justify-content:center
+    }
+
+    .ad-block{
+        width:300px;
+        min-height:300px;
+        position:sticky;
+        top:15px
+    }
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+    font-size:20px
+}
+
+h3{
+    font-size:17px
+}
+
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    font-size:14px
+}
+
+select,
+input,
+button{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+    margin-bottom:10px;
+    outline:none
+}
+
+button{
+    cursor:pointer
+}
+
+input:focus,
+select:focus{
+    border-color:#007bff;
+    box-shadow:0 0 0 2px rgba(0,123,255,.08)
+}
+
+.btn-send{
+    background:#007bff;
+    color:#fff;
+    border:none;
+    font-weight:bold;
+    height:50px
+}
+
+.btn-send:active{
+    background:#0056b3
+}
+
+
+/* ==========================================
+   ПОИСК МЕСТА
+   ========================================== */
+
+.location-search-wrapper{
+    position:relative
+}
+
+#locationSearch{
+    margin-bottom:5px
+}
+
+.search-results{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    display:none;
+    max-height:230px;
+    overflow-y:auto
+}
+
+.search-result{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+    font-size:14px;
+    transition:.15s
+}
+
+.search-result:last-child{
+    border-bottom:none
+}
+
+.search-result:hover{
+    background:#f1f5f9
+}
+
+.search-result-name{
+    font-weight:600
+}
+
+.search-empty{
+    padding:14px;
+    color:#777;
+    text-align:center;
+    font-size:13px
+}
+
+.add-search-location{
+    width:100%;
+    background:#28a745;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    padding:11px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:5px;
+    margin-bottom:10px
+}
+
+.add-search-location:hover{
+    background:#218838
+}
+
+.selected-location{
+    background:#e8f3ff;
+    border:1px solid #b9dcff;
+    color:#075985;
+    border-radius:8px;
+    padding:10px;
+    font-size:13px;
+    margin-bottom:10px;
+    display:none
+}
+
+.selected-location strong{
+    font-weight:700
+}
+
+
+/* ==========================================
+   FEED
+   ========================================== */
+
+.feed-item{
+    background:#f8f9fa;
+    border-left:5px solid #007bff;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:10px
+}
+
+.feed-location{
+    font-weight:bold;
+    font-size:16px
+}
+
+.feed-car{
+    color:#dc3545;
+    font-weight:bold;
+    margin-top:3px
+}
+
+.feed-time{
+    font-size:11px;
+    color:#777;
+    margin-top:5px
+}
+
+.status-panel{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed #ddd
+}
+
+.vote-btn{
+    width:auto;
+    padding:6px 12px;
+    font-size:12px;
+    margin:0;
+    border:none;
+    border-radius:6px;
+    font-weight:bold
+}
+
+
+/* ==========================================
+   POPUPS
+   ========================================== */
+
+.overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    z-index:2000;
+    align-items:center;
+    justify-content:center;
+    padding:15px
+}
+
+.popup{
+    background:#fff;
+    padding:25px;
+    border-radius:20px;
+    width:100%;
+    max-width:420px;
+    text-align:center;
+    max-height:90vh;
+    overflow-y:auto
+}
+
+.admin-list{
+    text-align:left;
+    max-height:180px;
+    overflow-y:auto;
+    margin:15px 0;
+    border:1px solid #eee;
+    padding:8px;
+    border-radius:8px
+}
+
+.admin-loc-item{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:7px 0;
+    border-bottom:1px solid #eee;
+    font-size:13px
+}
+
+.del-btn{
+    color:#dc3545;
+    cursor:pointer;
+    font-weight:bold;
+    border:none;
+    background:none;
+    width:auto;
+    margin:0;
+    padding:0
+}
+
+.btn-admin-trigger{
+    background:none;
+    border:none;
+    color:#adb5bd;
+    font-size:10px;
+    margin-top:30px;
+    cursor:pointer
+}
+
+.hidden{
+    display:none!important
+}
+
+.row{
+    display:flex;
+    gap:10px
+}
+
+.row button{
+    flex:1
+}
+
+.error{
+    color:#dc3545;
+    font-size:13px;
+    margin-top:8px
+}
+
+.success{
+    color:#198754;
+    font-size:13px;
+    margin-top:8px
+}
+
+.empty{
+    text-align:center;
+    color:#777;
+    padding:20px 5px
+}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 
 <body>
 
 <div class="main-layout">
 
+    <!-- РЕКЛАМА -->
+
     <div class="ad-block" id="adContainer">
-        <img id="adPoster" src="" alt="Реклама">
+
+        <img
+            id="adPoster"
+            src=""
+            alt="Реклама"
+        >
 
         <div class="ad-content">
-            <div class="ad-title">⭐ Партнер проекта</div>
 
-            <div class="ad-text" id="adDefaultText">
+            <div class="ad-title">
+                ⭐ Партнер проекта
+            </div>
+
+            <div
+                class="ad-text"
+                id="adDefaultText"
+            >
                 Место под ваш плакат свободно.
             </div>
 
-            <a id="adLink"
-               href="https://t.me"
-               target="_blank"
-               rel="noopener"
-               class="ad-link">
+            <a
+                id="adLink"
+                href="https://t.me"
+                target="_blank"
+                rel="noopener"
+                class="ad-link"
+            >
                 Купить рекламу
             </a>
+
         </div>
+
     </div>
+
+
+    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
 
     <div class="container">
 
-        <h2>🚨 ДПС Железногорск Live</h2>
+        <h2>
+            🚨 ДПС Железногорск Live
+        </h2>
 
-        <label>📍 Где стоят?</label>
 
-        <select id="locationSelect">
-            <option value="LOADING">Загрузка мест...</option>
+        <!-- ==========================================
+             ПОИСК МЕСТА
+             ========================================== -->
+
+        <label>
+            📍 Где стоят?
+        </label>
+
+        <div class="location-search-wrapper">
+
+            <input
+                type="text"
+                id="locationSearch"
+                placeholder="🔎 Начните вводить улицу или место..."
+                autocomplete="off"
+                maxlength="80"
+            >
+
+            <div
+                id="searchResults"
+                class="search-results"
+            ></div>
+
+            <div
+                id="selectedLocation"
+                class="selected-location"
+            >
+                Выбрано:
+                <strong id="selectedLocationName"></strong>
+            </div>
+
+        </div>
+
+
+        <!-- Скрытый select сохраняем для совместимости -->
+
+        <select
+            id="locationSelect"
+            style="display:none"
+        >
+            <option value="">
+                Выберите место
+            </option>
         </select>
 
-        <label>🚓 Автомобиль?</label>
+
+        <!-- АВТОМОБИЛЬ -->
+
+        <label>
+            🚓 Автомобиль?
+        </label>
 
         <select id="carSelect">
-            <option>УАЗ Патриот</option>
-            <option>Ford Focus</option>
-            <option>Hyundai Solaris</option>
-            <option>VW / Skoda</option>
-            <option>Скрытый патруль</option>
+
+            <option>
+                УАЗ Патриот
+            </option>
+
+            <option>
+                Ford Focus
+            </option>
+
+            <option>
+                Hyundai Solaris
+            </option>
+
+            <option>
+                VW / Skoda
+            </option>
+
+            <option>
+                Скрытый патруль
+            </option>
+
         </select>
 
-        <button class="btn-send" id="sendButton">
+
+        <!-- ОТПРАВКА -->
+
+        <button
+            class="btn-send"
+            id="sendButton"
+        >
             📢 Сообщить людям
         </button>
 
+
         <div id="messageBox"></div>
 
-        <div style="height:1px;background:#eee;margin:20px 0"></div>
 
-        <h3>📈 Актуально (20 мин):</h3>
+        <div
+            style="
+                height:1px;
+                background:#eee;
+                margin:20px 0
+            "
+        ></div>
+
+
+        <h3>
+            📈 Актуально (20 мин):
+        </h3>
+
 
         <div id="feedContainer"></div>
 
-        <button class="btn-admin-trigger" id="adminButton">
+
+        <button
+            class="btn-admin-trigger"
+            id="adminButton"
+        >
             Панель Разработчика
         </button>
 
     </div>
+
 </div>
 
 
-<!-- ДОБАВЛЕНИЕ МЕСТА -->
+<!-- ==========================================
+     ДОБАВЛЕНИЕ НОВОГО МЕСТА
+     ========================================== -->
 
-<div id="customLocOverlay" class="overlay">
+<div
+    id="customLocOverlay"
+    class="overlay"
+>
 
     <div class="popup">
 
-        <h4>Добавить новое место</h4>
+        <h4>
+            Добавить новое место
+        </h4>
 
         <input
             type="text"
@@ -138,7 +596,11 @@ button{cursor:pointer}
 
             <button
                 id="saveCustom"
-                style="background:#28a745;color:#fff">
+                style="
+                    background:#28a745;
+                    color:#fff
+                "
+            >
                 Добавить
             </button>
 
@@ -149,15 +611,25 @@ button{cursor:pointer}
 </div>
 
 
-<!-- АДМИНКА -->
+<!-- ==========================================
+     АДМИНКА
+     ========================================== -->
 
-<div id="adminOverlay" class="overlay">
+<div
+    id="adminOverlay"
+    class="overlay"
+>
 
     <div class="popup">
 
-        <h4>⚙️ Управление</h4>
+        <h4>
+            ⚙️ Управление
+        </h4>
 
-        <label>Ссылка на плакат:</label>
+
+        <label>
+            Ссылка на плакат:
+        </label>
 
         <input
             type="url"
@@ -165,7 +637,10 @@ button{cursor:pointer}
             placeholder="https://..."
         >
 
-        <label>Ссылка при нажатии на рекламу:</label>
+
+        <label>
+            Ссылка при нажатии на рекламу:
+        </label>
 
         <input
             type="url"
@@ -173,24 +648,36 @@ button{cursor:pointer}
             placeholder="https://..."
         >
 
+
         <div class="row">
 
             <button
                 id="updateAdBtn"
-                style="background:#007bff;color:#fff">
+                style="
+                    background:#007bff;
+                    color:#fff
+                "
+            >
                 Применить
             </button>
 
             <button
                 id="clearAdBtn"
-                style="background:#6c757d;color:#fff">
+                style="
+                    background:#6c757d;
+                    color:#fff
+                "
+            >
                 Снять
             </button>
 
         </div>
 
 
-        <label>Добавить место:</label>
+        <label>
+            Добавить место:
+        </label>
+
 
         <div class="row">
 
@@ -203,26 +690,43 @@ button{cursor:pointer}
 
             <button
                 id="adminAddLocation"
-                style="background:#28a745;color:#fff">
+                style="
+                    background:#28a745;
+                    color:#fff
+                "
+            >
                 +
             </button>
 
         </div>
 
 
-        <label>Удаление мест:</label>
+        <label>
+            Удаление мест:
+        </label>
 
-        <div id="adminLocList" class="admin-list"></div>
+
+        <div
+            id="adminLocList"
+            class="admin-list"
+        ></div>
 
 
         <button
             id="clearOldReports"
-            style="background:#dc3545;color:#fff">
+            style="
+                background:#dc3545;
+                color:#fff
+            "
+        >
             Удалить старые сообщения
         </button>
 
 
-        <button id="closeAdmin" style="margin-top:10px">
+        <button
+            id="closeAdmin"
+            style="margin-top:10px"
+        >
             Закрыть
         </button>
 
@@ -234,13 +738,15 @@ button{cursor:pointer}
 <script>
 
 /* =========================================================
-   НАСТРОЙКИ SUPABASE
+   SUPABASE
    ========================================================= */
 
 const ADMIN_PASS = "1234";
 
+
 const S_URL =
     "https://seslhhndjqicavaxgjaf.supabase.co";
+
 
 const S_KEY =
     "sb_publishable_weHdvrwyfuVnR8HsFUurmA_sAesJgMK";
@@ -248,6 +754,7 @@ const S_KEY =
 
 const REPORT_LIFETIME_MS =
     20 * 60 * 1000;
+
 
 const REPORT_COOLDOWN_MS =
     30 * 1000;
@@ -259,91 +766,82 @@ let locationsCache = [];
 
 let adminUnlocked = false;
 
+let selectedLocation = "";
+
 
 /* =========================================================
-   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+   DOM
    ========================================================= */
 
 const $ = id =>
     document.getElementById(id);
 
 
-function showMessage(text, type = "error") {
+/* =========================================================
+   СООБЩЕНИЯ
+   ========================================================= */
+
+function showMessage(
+    text,
+    type = "error"
+){
 
     $("messageBox").innerHTML =
-        `<div class="${type}">${escapeHtml(text)}</div>`;
+        `<div class="${type}">
+            ${escapeHtml(text)}
+        </div>`;
+
 
     setTimeout(() => {
+
         $("messageBox").innerHTML = "";
-    }, 5000);
+
+    },5000);
 }
 
 
-function escapeHtml(value) {
+function escapeHtml(value){
 
     return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 }
 
 
 /* =========================================================
-   SUPABASE
+   SUPABASE INIT
    ========================================================= */
 
-function isConfigured() {
+function initSupabase(){
 
-    return (
-        S_URL.startsWith("https://") &&
-        S_KEY &&
-        !S_URL.includes("YOUR_PROJECT") &&
-        !S_KEY.includes("YOUR_PUBLISHABLE")
-    );
-}
+    try{
 
+        sb =
+            window.supabase.createClient(
+                S_URL,
+                S_KEY
+            );
 
-function initSupabase() {
-
-    if (!isConfigured()) {
-
-        $("locationSelect").innerHTML =
-            `<option value="LOADING">
-                Настройте Supabase
-            </option>`;
-
-        $("feedContainer").innerHTML =
-            `<div class="empty">
-                ⚠️ Проверьте настройки Supabase.
-            </div>`;
-
-        return false;
-    }
-
-
-    try {
-
-        sb = window.supabase.createClient(
-            S_URL,
-            S_KEY
-        );
 
         console.log(
             "[DPS] Supabase подключён"
         );
 
+
         return true;
 
-    } catch (error) {
+    }catch(error){
 
         console.error(error);
 
         $("feedContainer").innerHTML =
             `<div class="empty">
-                Не удалось подключиться к базе данных.
+                ❌ Не удалось подключиться к Supabase.
             </div>`;
+
 
         return false;
     }
@@ -351,24 +849,27 @@ function initSupabase() {
 
 
 /* =========================================================
-   НАСТРОЙКИ РЕКЛАМЫ
+   РЕКЛАМА
    ========================================================= */
 
-async function loadSettings() {
+async function loadSettings(){
 
-    if (!sb) return;
+    if(!sb) return;
 
 
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await sb
             .from("app_settings")
             .select("key,value");
 
 
-    if (error) {
+    if(error){
 
         console.warn(
-            "Настройки не загружены:",
+            "Настройки:",
             error.message
         );
 
@@ -379,7 +880,10 @@ async function loadSettings() {
     const settings =
         Object.fromEntries(
             (data || []).map(
-                x => [x.key, x.value]
+                x => [
+                    x.key,
+                    x.value
+                ]
             )
         );
 
@@ -391,53 +895,72 @@ async function loadSettings() {
 }
 
 
-function applyAd(url, target) {
+function applyAd(
+    url,
+    target
+){
 
-    const img = $("adPoster");
+    const img =
+        $("adPoster");
 
-    const link = $("adLink");
+
+    const link =
+        $("adLink");
 
 
-    if (
+    if(
         url &&
         String(url).trim().length > 5
-    ) {
+    ){
 
         img.src = url;
 
-        img.style.display = "block";
+        img.style.display =
+            "block";
 
-        $("adDefaultText").style.display =
+        $("adDefaultText")
+            .style.display =
             "none";
 
-    } else {
+    }else{
 
-        img.removeAttribute("src");
+        img.removeAttribute(
+            "src"
+        );
 
-        img.style.display = "none";
+        img.style.display =
+            "none";
 
-        $("adDefaultText").style.display =
+        $("adDefaultText")
+            .style.display =
             "block";
     }
 
 
-    if (
+    if(
         target &&
         String(target).trim().length > 5
-    ) {
+    ){
 
-        link.href = target;
+        link.href =
+            target;
 
-    } else {
+    }else{
 
-        link.href = "https://t.me";
+        link.href =
+            "https://t.me";
     }
 }
 
 
-async function saveSetting(key, value) {
+async function saveSetting(
+    key,
+    value
+){
 
-    const { error } =
+    const {
+        error
+    } =
         await sb
             .from("app_settings")
             .upsert(
@@ -446,25 +969,25 @@ async function saveSetting(key, value) {
                     value
                 },
                 {
-                    onConflict: "key"
+                    onConflict:"key"
                 }
             );
 
 
-    if (error) {
+    if(error)
         throw error;
-    }
 }
 
 
-async function updateAd() {
+async function updateAd(){
 
-    try {
+    try{
 
         const url =
             $("adUrlInput")
                 .value
                 .trim();
+
 
         const target =
             $("adTargetInput")
@@ -472,10 +995,10 @@ async function updateAd() {
                 .trim();
 
 
-        if (
+        if(
             url &&
             !/^https?:\/\//i.test(url)
-        ) {
+        ){
 
             alert(
                 "Ссылка на плакат должна начинаться с http:// или https://"
@@ -485,10 +1008,10 @@ async function updateAd() {
         }
 
 
-        if (
+        if(
             target &&
             !/^https?:\/\//i.test(target)
-        ) {
+        ){
 
             alert(
                 "Ссылка должна начинаться с http:// или https://"
@@ -502,6 +1025,7 @@ async function updateAd() {
             "ad_url",
             url
         );
+
 
         await saveSetting(
             "ad_target",
@@ -519,7 +1043,8 @@ async function updateAd() {
             "Реклама обновлена для всех пользователей."
         );
 
-    } catch (error) {
+
+    }catch(error){
 
         alert(
             "Ошибка: " +
@@ -529,14 +1054,15 @@ async function updateAd() {
 }
 
 
-async function clearAd() {
+async function clearAd(){
 
-    try {
+    try{
 
         await saveSetting(
             "ad_url",
             ""
         );
+
 
         await saveSetting(
             "ad_target",
@@ -544,15 +1070,21 @@ async function clearAd() {
         );
 
 
-        $("adUrlInput").value = "";
-
-        $("adTargetInput").value = "";
-
-
-        applyAd("", "");
+        $("adUrlInput").value =
+            "";
 
 
-    } catch (error) {
+        $("adTargetInput").value =
+            "";
+
+
+        applyAd(
+            "",
+            ""
+        );
+
+
+    }catch(error){
 
         alert(
             "Ошибка: " +
@@ -563,150 +1095,323 @@ async function clearAd() {
 
 
 /* =========================================================
-   POPUP
-   ========================================================= */
-
-function closePopup(id) {
-
-    $(id).style.display = "none";
-}
-
-
-/* =========================================================
-   АДМИНКА
-   ========================================================= */
-
-async function openAdmin() {
-
-    const pass =
-        prompt("Пароль:");
-
-
-    if (pass !== ADMIN_PASS) {
-
-        alert(
-            "Неверный пароль."
-        );
-
-        return;
-    }
-
-
-    adminUnlocked = true;
-
-    $("adminOverlay").style.display =
-        "flex";
-
-
-    await renderAdminLocations();
-
-    await loadSettingsIntoAdmin();
-}
-
-
-async function loadSettingsIntoAdmin() {
-
-    if (!sb) return;
-
-
-    const { data } =
-        await sb
-            .from("app_settings")
-            .select("key,value");
-
-
-    const settings =
-        Object.fromEntries(
-            (data || []).map(
-                x => [x.key, x.value]
-            )
-        );
-
-
-    $("adUrlInput").value =
-        settings.ad_url || "";
-
-    $("adTargetInput").value =
-        settings.ad_target || "";
-}
-
-
-/* =========================================================
    МЕСТА
    ========================================================= */
 
-async function loadLocations(selectName = null) {
+async function loadLocations(
+    selectName = null
+){
 
-    if (!sb) return;
+    if(!sb) return;
 
 
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await sb
             .from("custom_locations")
             .select("id,name")
             .order("name");
 
 
-    if (error) {
+    if(error){
 
         console.error(error);
 
-        $("locationSelect").innerHTML =
-            `<option value="LOADING">
-                Ошибка загрузки мест
-            </option>`;
+        $("locationSearch").placeholder =
+            "Ошибка загрузки мест";
+
 
         return;
     }
 
 
-    locationsCache = data || [];
+    locationsCache =
+        data || [];
 
 
-    const sel =
+    const select =
         $("locationSelect");
 
 
-    sel.innerHTML =
+    select.innerHTML =
         locationsCache
-            .map(l =>
-                `<option value="${escapeHtml(l.name)}">
-                    ${escapeHtml(l.name)}
-                </option>`
+            .map(
+                location =>
+                    `<option
+                        value="${escapeHtml(location.name)}">
+                        ${escapeHtml(location.name)}
+                    </option>`
             )
-            .join("") +
-        `<option value="CUSTOM">
-            ➕ -- Свой вариант --
-        </option>`;
+            .join("");
 
 
-    if (!locationsCache.length) {
+    if(
+        selectName &&
+        locationsCache.some(
+            x =>
+                x.name ===
+                selectName
+        )
+    ){
 
-        sel.innerHTML =
-            `<option value="CUSTOM">
-                ➕ Добавить первое место
-            </option>`;
-    }
+        select.value =
+            selectName;
 
-
-    if (selectName) {
-
-        sel.value = selectName;
+        chooseLocation(
+            selectName,
+            false
+        );
     }
 }
 
 
-function checkCustomLocation() {
+/* =========================================================
+   ПОИСК МЕСТА
+   ========================================================= */
 
-    if (
-        $("locationSelect").value ===
-        "CUSTOM"
-    ) {
+function normalizeSearch(
+    value
+){
 
-        $("customLocOverlay").style.display =
-            "flex";
+    return String(
+        value || ""
+    )
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g," ");
+}
 
-        $("newLocInput").focus();
+
+function renderSearchResults(){
+
+    const query =
+        normalizeSearch(
+            $("locationSearch").value
+        );
+
+
+    const results =
+        $("searchResults");
+
+
+    /*
+        Если пользователь очистил поле —
+        скрываем результаты.
+    */
+
+    if(!query){
+
+        results.style.display =
+            "none";
+
+        results.innerHTML =
+            "";
+
+        return;
+    }
+
+
+    const filtered =
+        locationsCache.filter(
+            location =>
+                normalizeSearch(
+                    location.name
+                ).includes(query)
+        );
+
+
+    /*
+        Нашли места
+    */
+
+    if(filtered.length){
+
+        results.innerHTML =
+            filtered
+                .map(
+                    location =>
+                        `<div
+                            class="search-result"
+                            data-location="${escapeHtml(location.name)}">
+
+                            <div class="search-result-name">
+                                📍
+                                ${escapeHtml(location.name)}
+                            </div>
+
+                        </div>`
+                )
+                .join("");
+
+
+        results.style.display =
+            "block";
+
+
+        results
+            .querySelectorAll(
+                ".search-result"
+            )
+            .forEach(
+                element => {
+
+                    element.addEventListener(
+                        "click",
+                        () => {
+
+                            chooseLocation(
+                                element.dataset.location,
+                                true
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        return;
+    }
+
+
+    /*
+        Ничего не нашли.
+    */
+
+    results.innerHTML =
+        `
+        <div class="search-empty">
+            🔎 Место не найдено
+        </div>
+
+        <button
+            type="button"
+            class="add-search-location"
+            id="addSearchLocationBtn"
+        >
+            ➕ Добавить «${escapeHtml(
+                $("locationSearch").value.trim()
+            )}»
+        </button>
+        `;
+
+
+    results.style.display =
+        "block";
+
+
+    $("addSearchLocationBtn")
+        .addEventListener(
+            "click",
+            addLocationFromSearch
+        );
+}
+
+
+function chooseLocation(
+    name,
+    clearSearch = true
+){
+
+    name =
+        String(name || "")
+            .trim();
+
+
+    if(!name)
+        return;
+
+
+    selectedLocation =
+        name;
+
+
+    $("locationSelect").value =
+        name;
+
+
+    $("selectedLocationName")
+        .textContent =
+        name;
+
+
+    $("selectedLocation")
+        .style.display =
+        "block";
+
+
+    if(clearSearch){
+
+        $("locationSearch").value =
+            name;
+    }
+
+
+    $("searchResults")
+        .style.display =
+        "none";
+
+
+    $("searchResults")
+        .innerHTML =
+        "";
+}
+
+
+/* =========================================================
+   ДОБАВЛЕНИЕ МЕСТА ИЗ ПОИСКА
+   ========================================================= */
+
+async function addLocationFromSearch(){
+
+    const name =
+        $("locationSearch")
+            .value
+            .trim();
+
+
+    if(name.length < 2){
+
+        showMessage(
+            "Введите название места."
+        );
+
+        return;
+    }
+
+
+    try{
+
+        await addLocation(
+            name,
+            true
+        );
+
+
+        $("locationSearch").value =
+            name;
+
+
+        chooseLocation(
+            name,
+            true
+        );
+
+
+        showMessage(
+            "Место добавлено и выбрано.",
+            "success"
+        );
+
+
+    }catch(error){
+
+        showMessage(
+            error.message
+        );
     }
 }
 
@@ -714,15 +1419,15 @@ function checkCustomLocation() {
 async function addLocation(
     name,
     selectAfter = false
-) {
+){
 
     name =
         String(name || "")
             .trim()
-            .replace(/\s+/g, " ");
+            .replace(/\s+/g," ");
 
 
-    if (name.length < 2) {
+    if(name.length < 2){
 
         throw new Error(
             "Введите название места."
@@ -730,7 +1435,7 @@ async function addLocation(
     }
 
 
-    if (name.length > 80) {
+    if(name.length > 80){
 
         throw new Error(
             "Название слишком длинное."
@@ -746,12 +1451,19 @@ async function addLocation(
         );
 
 
-    if (exists) {
+    if(exists){
 
-        if (selectAfter) {
+        if(selectAfter){
 
-            await loadLocations(
-                name
+            chooseLocation(
+                exists
+                    ? locationsCache.find(
+                        x =>
+                            x.name.toLowerCase() ===
+                            name.toLowerCase()
+                    ).name
+                    : name,
+                true
             );
         }
 
@@ -759,7 +1471,9 @@ async function addLocation(
     }
 
 
-    const { error } =
+    const {
+        error
+    } =
         await sb
             .from("custom_locations")
             .insert([
@@ -769,26 +1483,34 @@ async function addLocation(
             ]);
 
 
-    if (error) {
-
+    if(error)
         throw error;
+
+
+    await loadLocations();
+
+
+    if(selectAfter){
+
+        chooseLocation(
+            name,
+            true
+        );
     }
-
-
-    await loadLocations(
-        selectAfter
-            ? name
-            : null
-    );
 }
 
 
-async function saveNewLocation() {
+/* =========================================================
+   СТАРОЕ ОКНО ДОБАВЛЕНИЯ
+   ========================================================= */
 
-    try {
+async function saveNewLocation(){
+
+    try{
 
         const name =
-            $("newLocInput").value;
+            $("newLocInput")
+                .value;
 
 
         await addLocation(
@@ -806,7 +1528,7 @@ async function saveNewLocation() {
         );
 
 
-    } catch (error) {
+    }catch(error){
 
         alert(
             error.message
@@ -815,24 +1537,102 @@ async function saveNewLocation() {
 }
 
 
-async function renderAdminLocations() {
+/* =========================================================
+   АДМИНКА
+   ========================================================= */
 
-    if (!sb) return;
+async function openAdmin(){
+
+    const pass =
+        prompt(
+            "Пароль:"
+        );
 
 
-    const { data, error } =
+    if(
+        pass !==
+        ADMIN_PASS
+    ){
+
+        alert(
+            "Неверный пароль."
+        );
+
+        return;
+    }
+
+
+    adminUnlocked =
+        true;
+
+
+    $("adminOverlay")
+        .style.display =
+        "flex";
+
+
+    await renderAdminLocations();
+
+    await loadSettingsIntoAdmin();
+}
+
+
+async function loadSettingsIntoAdmin(){
+
+    if(!sb) return;
+
+
+    const {
+        data
+    } =
+        await sb
+            .from("app_settings")
+            .select("key,value");
+
+
+    const settings =
+        Object.fromEntries(
+            (data || []).map(
+                x => [
+                    x.key,
+                    x.value
+                ]
+            )
+        );
+
+
+    $("adUrlInput").value =
+        settings.ad_url || "";
+
+
+    $("adTargetInput").value =
+        settings.ad_target || "";
+}
+
+
+async function renderAdminLocations(){
+
+    if(!sb) return;
+
+
+    const {
+        data,
+        error
+    } =
         await sb
             .from("custom_locations")
             .select("id,name")
             .order("name");
 
 
-    if (error) {
+    if(error){
 
         $("adminLocList").innerHTML =
             `<div class="error">
                 Ошибка:
-                ${escapeHtml(error.message)}
+                ${escapeHtml(
+                    error.message
+                )}
             </div>`;
 
         return;
@@ -841,22 +1641,29 @@ async function renderAdminLocations() {
 
     $("adminLocList").innerHTML =
         data?.length
-            ? data.map(l => `
-                <div class="admin-loc-item">
+            ? data
+                .map(
+                    location =>
+                        `<div class="admin-loc-item">
 
-                    <span>
-                        ${escapeHtml(l.name)}
-                    </span>
+                            <span>
+                                ${escapeHtml(
+                                    location.name
+                                )}
+                            </span>
 
-                    <button
-                        class="del-btn"
-                        data-id="${l.id}"
-                        data-name="${escapeHtml(l.name)}">
-                        ❌
-                    </button>
+                            <button
+                                class="del-btn"
+                                data-id="${location.id}"
+                                data-name="${escapeHtml(
+                                    location.name
+                                )}">
+                                ❌
+                            </button>
 
-                </div>
-            `).join("")
+                        </div>`
+                )
+                .join("")
 
             : `<div class="empty">
                 Мест пока нет.
@@ -864,46 +1671,58 @@ async function renderAdminLocations() {
 
 
     document
-        .querySelectorAll(".del-btn")
-        .forEach(btn => {
+        .querySelectorAll(
+            ".del-btn"
+        )
+        .forEach(
+            button => {
 
-            btn.addEventListener(
-                "click",
-                () =>
-                    deleteLoc(
-                        Number(btn.dataset.id),
-                        btn.dataset.name
-                    )
-            );
-        });
+                button.addEventListener(
+                    "click",
+                    () =>
+                        deleteLoc(
+                            Number(
+                                button.dataset.id
+                            ),
+                            button.dataset.name
+                        )
+                );
+
+            }
+        );
 }
 
 
 async function deleteLoc(
     id,
     name
-) {
+){
 
-    if (!adminUnlocked) return;
+    if(!adminUnlocked)
+        return;
 
 
-    if (
+    if(
         !confirm(
             `Удалить место "${name}"?`
         )
-    ) {
+    )
         return;
-    }
 
 
-    const { error } =
+    const {
+        error
+    } =
         await sb
             .from("custom_locations")
             .delete()
-            .eq("id", id);
+            .eq(
+                "id",
+                id
+            );
 
 
-    if (error) {
+    if(error){
 
         alert(
             "Ошибка: " +
@@ -917,14 +1736,39 @@ async function deleteLoc(
     await loadLocations();
 
     await renderAdminLocations();
+
+
+    /*
+        Если удалили выбранное место,
+        сбрасываем выбор.
+    */
+
+    if(
+        selectedLocation ===
+        name
+    ){
+
+        selectedLocation =
+            "";
+
+
+        $("locationSearch")
+            .value =
+            "";
+
+
+        $("selectedLocation")
+            .style.display =
+            "none";
+    }
 }
 
 
 /* =========================================================
-   ОТПРАВКА СООБЩЕНИЯ
+   REPORT COOLDOWN
    ========================================================= */
 
-function getCooldownRemaining() {
+function getCooldownRemaining(){
 
     const last =
         Number(
@@ -945,12 +1789,16 @@ function getCooldownRemaining() {
 }
 
 
-async function sendReport() {
+/* =========================================================
+   ОТПРАВКА
+   ========================================================= */
 
-    if (!sb) {
+async function sendReport(){
+
+    if(!sb){
 
         showMessage(
-            "Сначала настройте подключение к Supabase."
+            "Supabase не подключён."
         );
 
         return;
@@ -961,7 +1809,7 @@ async function sendReport() {
         getCooldownRemaining();
 
 
-    if (remaining > 0) {
+    if(remaining > 0){
 
         showMessage(
             `Подождите ${Math.ceil(
@@ -974,6 +1822,7 @@ async function sendReport() {
 
 
     const loc =
+        selectedLocation ||
         $("locationSelect").value;
 
 
@@ -981,34 +1830,39 @@ async function sendReport() {
         $("carSelect").value;
 
 
-    if (
+    if(
         !loc ||
-        loc === "LOADING" ||
-        loc === "CUSTOM"
-    ) {
+        !locationsCache.some(
+            x =>
+                x.name ===
+                loc
+        )
+    ){
 
         showMessage(
-            "Выберите или добавьте место."
+            "Сначала найдите и выберите место."
         );
 
         return;
     }
 
 
-    const { error } =
+    const {
+        error
+    } =
         await sb
             .from("dps_markers")
             .insert([
                 {
-                    lat: 1,
-                    lng: 1,
+                    lat:1,
+                    lng:1,
                     car_type:
                         `${loc} -> [${car}]`
                 }
             ]);
 
 
-    if (error) {
+    if(error){
 
         console.error(error);
 
@@ -1023,7 +1877,9 @@ async function sendReport() {
 
     localStorage.setItem(
         "last_report_time",
-        String(Date.now())
+        String(
+            Date.now()
+        )
     );
 
 
@@ -1038,10 +1894,10 @@ async function sendReport() {
 
 
 /* =========================================================
-   ПАРСИНГ СООБЩЕНИЙ
+   REPORT PARSER
    ========================================================= */
 
-function parseReport(item) {
+function parseReport(item){
 
     const raw =
         String(
@@ -1059,7 +1915,7 @@ function parseReport(item) {
         );
 
 
-    if (index === -1) {
+    if(index === -1){
 
         return {
             location:
@@ -1086,13 +1942,25 @@ function parseReport(item) {
                     index +
                     separator.length
                 )
-                .replace(/^\[/, "")
-                .replace(/\]$/, "")
+                .replace(
+                    /^\[/,
+                    ""
+                )
+                .replace(
+                    /\]$/,
+                    ""
+                )
     };
 }
 
 
-function timeAgo(dateString) {
+/* =========================================================
+   TIME
+   ========================================================= */
+
+function timeAgo(
+    dateString
+){
 
     const diff =
         Math.max(
@@ -1110,15 +1978,15 @@ function timeAgo(dateString) {
         );
 
 
-    if (minutes < 1)
+    if(minutes < 1)
         return "только что";
 
 
-    if (minutes === 1)
+    if(minutes === 1)
         return "1 минуту назад";
 
 
-    if (minutes < 5)
+    if(minutes < 5)
         return `${minutes} минуты назад`;
 
 
@@ -1127,12 +1995,12 @@ function timeAgo(dateString) {
 
 
 /* =========================================================
-   ОЧИСТКА СТАРЫХ СООБЩЕНИЙ
+   CLEANUP
    ========================================================= */
 
-async function cleanupExpiredReports() {
+async function cleanupExpiredReports(){
 
-    if (!sb) return;
+    if(!sb) return;
 
 
     const limit =
@@ -1142,7 +2010,9 @@ async function cleanupExpiredReports() {
         ).toISOString();
 
 
-    const { error } =
+    const {
+        error
+    } =
         await sb
             .from("dps_markers")
             .delete()
@@ -1152,7 +2022,7 @@ async function cleanupExpiredReports() {
             );
 
 
-    if (error) {
+    if(error){
 
         console.warn(
             "Очистка:",
@@ -1163,12 +2033,12 @@ async function cleanupExpiredReports() {
 
 
 /* =========================================================
-   ЛЕНТА
+   FEED
    ========================================================= */
 
-async function loadFeed() {
+async function loadFeed(){
 
-    if (!sb) return;
+    if(!sb) return;
 
 
     const limit =
@@ -1178,7 +2048,10 @@ async function loadFeed() {
         ).toISOString();
 
 
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await sb
             .from("dps_markers")
             .select("*")
@@ -1189,19 +2062,21 @@ async function loadFeed() {
             .order(
                 "created_at",
                 {
-                    ascending: false
+                    ascending:false
                 }
             );
 
 
-    if (error) {
+    if(error){
 
         console.error(error);
 
         $("feedContainer").innerHTML =
             `<div class="empty">
                 Ошибка загрузки:
-                ${escapeHtml(error.message)}
+                ${escapeHtml(
+                    error.message
+                )}
             </div>`;
 
         return;
@@ -1212,10 +2087,10 @@ async function loadFeed() {
         $("feedContainer");
 
 
-    if (
+    if(
         !data ||
         !data.length
-    ) {
+    ){
 
         cont.innerHTML =
             `<div class="empty">
@@ -1228,116 +2103,133 @@ async function loadFeed() {
 
     cont.innerHTML =
         data
-            .map(item => {
+            .map(
+                item => {
 
-                const report =
-                    parseReport(item);
+                    const report =
+                        parseReport(
+                            item
+                        );
 
 
-                return `
-                    <div class="feed-item">
+                    return `
+                        <div class="feed-item">
 
-                        <div class="feed-location">
-                            📍
-                            ${escapeHtml(
-                                report.location
-                            )}
-                        </div>
+                            <div class="feed-location">
+                                📍
+                                ${escapeHtml(
+                                    report.location
+                                )}
+                            </div>
 
-                        <div class="feed-car">
-                            🚓
-                            ${escapeHtml(
-                                report.car
-                            )}
-                        </div>
+                            <div class="feed-car">
+                                🚓
+                                ${escapeHtml(
+                                    report.car
+                                )}
+                            </div>
 
-                        <div class="feed-time">
-                            ${timeAgo(
-                                item.created_at
-                            )}
-                        </div>
+                            <div class="feed-time">
+                                ${timeAgo(
+                                    item.created_at
+                                )}
+                            </div>
 
-                        <div class="status-panel">
+                            <div class="status-panel">
 
-                            <span style="font-size:12px">
-                                Сообщение актуально?
-                            </span>
+                                <span style="font-size:12px">
+                                    Сообщение актуально?
+                                </span>
 
-                            <div style="display:flex;gap:5px">
+                                <div style="display:flex;gap:5px">
 
-                                <button
-                                    class="vote-btn vote-yes"
-                                    data-id="${item.id}"
-                                    style="background:#e2f0d9">
-                                    Да
-                                </button>
+                                    <button
+                                        class="vote-btn vote-yes"
+                                        data-id="${item.id}"
+                                        style="
+                                            background:#e2f0d9
+                                        "
+                                    >
+                                        Да
+                                    </button>
 
-                                <button
-                                    class="vote-btn vote-no"
-                                    data-id="${item.id}"
-                                    style="background:#fce4d6">
-                                    Нет
-                                </button>
+                                    <button
+                                        class="vote-btn vote-no"
+                                        data-id="${item.id}"
+                                        style="
+                                            background:#fce4d6
+                                        "
+                                    >
+                                        Нет
+                                    </button>
+
+                                </div>
 
                             </div>
 
                         </div>
-
-                    </div>
-                `;
-            })
+                    `;
+                }
+            )
             .join("");
 
 
     document
-        .querySelectorAll(".vote-yes")
-        .forEach(btn =>
-            btn.addEventListener(
-                "click",
-                () =>
-                    vote(
-                        Number(
-                            btn.dataset.id
-                        ),
-                        true
-                    )
-            )
+        .querySelectorAll(
+            ".vote-yes"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () =>
+                        vote(
+                            Number(
+                                button.dataset.id
+                            ),
+                            true
+                        )
+                );
+
+            }
         );
 
 
     document
-        .querySelectorAll(".vote-no")
-        .forEach(btn =>
-            btn.addEventListener(
-                "click",
-                () =>
-                    vote(
-                        Number(
-                            btn.dataset.id
-                        ),
-                        false
-                    )
-            )
+        .querySelectorAll(
+            ".vote-no"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () =>
+                        vote(
+                            Number(
+                                button.dataset.id
+                            ),
+                            false
+                        )
+                );
+
+            }
         );
 }
 
 
 /* =========================================================
-   ГОЛОСОВАНИЕ
+   VOTE
    ========================================================= */
 
 async function vote(
     id,
     ok
-) {
+){
 
-    if (!sb) return;
+    if(!sb) return;
 
-
-    /*
-        "Да" обновляет время сообщения.
-        "Нет" делает запись просроченной.
-    */
 
     const createdAt =
         ok
@@ -1345,7 +2237,9 @@ async function vote(
             : new Date(0).toISOString();
 
 
-    const { error } =
+    const {
+        error
+    } =
         await sb
             .from("dps_markers")
             .update({
@@ -1358,7 +2252,7 @@ async function vote(
             );
 
 
-    if (error) {
+    if(error){
 
         alert(
             "Ошибка голосования: " +
@@ -1376,22 +2270,21 @@ async function vote(
 
 
 /* =========================================================
-   ОЧИСТКА СТАРЫХ СООБЩЕНИЙ ИЗ АДМИНКИ
+   CLEAR OLD REPORTS
    ========================================================= */
 
-async function clearOldReports() {
+async function clearOldReports(){
 
-    if (!adminUnlocked)
+    if(!adminUnlocked)
         return;
 
 
-    if (
+    if(
         !confirm(
             "Удалить все сообщения старше 20 минут?"
         )
-    ) {
+    )
         return;
-    }
 
 
     await cleanupExpiredReports();
@@ -1409,13 +2302,106 @@ async function clearOldReports() {
    EVENTS
    ========================================================= */
 
-function setupEvents() {
+function setupEvents(){
 
-    $("locationSelect")
+    /*
+        Поиск при вводе
+    */
+
+    $("locationSearch")
         .addEventListener(
-            "change",
-            checkCustomLocation
+            "input",
+            renderSearchResults
         );
+
+
+    /*
+        Enter — если найдено ровно одно место,
+        автоматически выбираем его.
+        Если нет — предлагаем добавить.
+    */
+
+    $("locationSearch")
+        .addEventListener(
+            "keydown",
+            async event => {
+
+                if(
+                    event.key !==
+                    "Enter"
+                )
+                    return;
+
+
+                event.preventDefault();
+
+
+                const query =
+                    normalizeSearch(
+                        $("locationSearch")
+                            .value
+                    );
+
+
+                if(!query)
+                    return;
+
+
+                const matches =
+                    locationsCache.filter(
+                        location =>
+                            normalizeSearch(
+                                location.name
+                            ).includes(query)
+                    );
+
+
+                if(
+                    matches.length === 1
+                ){
+
+                    chooseLocation(
+                        matches[0].name,
+                        true
+                    );
+
+                }else if(
+                    matches.length === 0
+                ){
+
+                    await addLocationFromSearch();
+                }
+            }
+        );
+
+
+    /*
+        Клик вне поиска закрывает список
+    */
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            const wrapper =
+                document.querySelector(
+                    ".location-search-wrapper"
+                );
+
+
+            if(
+                wrapper &&
+                !wrapper.contains(
+                    event.target
+                )
+            ){
+
+                $("searchResults")
+                    .style.display =
+                    "none";
+            }
+        }
+    );
 
 
     $("sendButton")
@@ -1440,16 +2426,6 @@ function setupEvents() {
                 closePopup(
                     "customLocOverlay"
                 );
-
-
-                if (
-                    locationsCache.length
-                ) {
-
-                    $("locationSelect")
-                        .value =
-                        locationsCache[0].name;
-                }
             }
         );
 
@@ -1464,11 +2440,12 @@ function setupEvents() {
     $("newLocInput")
         .addEventListener(
             "keydown",
-            e => {
+            event => {
 
-                if (
-                    e.key === "Enter"
-                ) {
+                if(
+                    event.key ===
+                    "Enter"
+                ){
 
                     saveNewLocation();
                 }
@@ -1495,7 +2472,7 @@ function setupEvents() {
             "click",
             async () => {
 
-                try {
+                try{
 
                     await addLocation(
                         $("adminNewLocation")
@@ -1504,12 +2481,14 @@ function setupEvents() {
 
 
                     $("adminNewLocation")
-                        .value = "";
+                        .value =
+                        "";
 
 
                     await renderAdminLocations();
 
-                } catch (error) {
+
+                }catch(error){
 
                     alert(
                         error.message
@@ -1531,7 +2510,9 @@ function setupEvents() {
             "click",
             () => {
 
-                adminUnlocked = false;
+                adminUnlocked =
+                    false;
+
 
                 closePopup(
                     "adminOverlay"
@@ -1541,40 +2522,56 @@ function setupEvents() {
 
 
     document
-        .querySelectorAll(".overlay")
-        .forEach(overlay => {
+        .querySelectorAll(
+            ".overlay"
+        )
+        .forEach(
+            overlay => {
 
-            overlay.addEventListener(
-                "click",
-                e => {
+                overlay.addEventListener(
+                    "click",
+                    event => {
 
-                    if (
-                        e.target ===
-                        overlay
-                    ) {
+                        if(
+                            event.target ===
+                            overlay
+                        ){
 
-                        closePopup(
-                            overlay.id
-                        );
+                            closePopup(
+                                overlay.id
+                            );
+                        }
                     }
-                }
-            );
-        });
+                );
+            }
+        );
 }
 
 
 /* =========================================================
-   ЗАПУСК
+   POPUP
    ========================================================= */
 
-async function init() {
+function closePopup(id){
+
+    $(id).style.display =
+        "none";
+}
+
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+async function init(){
 
     setupEvents();
 
 
-    if (
+    if(
         !initSupabase()
-    ) {
+    ){
+
         return;
     }
 
@@ -1591,6 +2588,10 @@ async function init() {
 
     ]);
 
+
+    /*
+        Автообновление каждые 15 секунд
+    */
 
     setInterval(
         async () => {
