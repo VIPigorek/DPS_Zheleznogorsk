@@ -4,131 +4,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 <title>ДПС Железногорск Мониторинг</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif
-}
-
-body{
-    background:#f0f2f5;
-    color:#333;
-    padding:15px
-}
-
-.main-layout{
-    display:flex;
-    flex-direction:column;
-    max-width:900px;
-    margin:0 auto;
-    gap:15px
-}
-
-.container{
-    flex:1;
-    max-width:500px;
-    width:100%;
-    margin:0 auto;
-    background:#fff;
-    border-radius:16px;
-    padding:20px;
-    box-shadow:0 4px 15px rgba(0,0,0,.05)
-}
-
-.ad-block{
-    background:#fffbeb;
-    border:2px dashed #f59e0b;
-    border-radius:16px;
-    overflow:hidden;
-    text-align:center;
-    box-shadow:0 4px 15px rgba(0,0,0,.05);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    position:relative;
-    min-height:150px
-}
-
-#adPoster{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:none;
-    z-index:2
-}
-
-.ad-content{
-    padding:20px;
-    z-index:1
-}
-
-.ad-title{
-    font-size:13px;
-    font-weight:bold;
-    color:#b45309;
-    text-transform:uppercase;
-    margin-bottom:8px
-}
-
-.ad-text{
-    font-size:15px;
-    margin-bottom:10px
-}
-
-.ad-link{
-    display:inline-block;
-    background:#007bff;
-    color:#fff;
-    text-decoration:none;
-    padding:8px 16px;
-    border-radius:20px;
-    font-weight:bold;
-    font-size:14px
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+body{background:#f0f2f5;color:#333;padding:15px}
+.main-layout{display:flex;flex-direction:column;max-width:900px;margin:0 auto;gap:15px}
+.container{flex:1;max-width:500px;width:100%;margin:0 auto;background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,.05)}
+.ad-block{background:#fffbeb;border:2px dashed #f59e0b;border-radius:16px;overflow:hidden;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.05);display:flex;flex-direction:column;justify-content:center;position:relative;min-height:150px}
+#adPoster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;z-index:2}
+.ad-content{padding:20px;z-index:1}
+.ad-title{font-size:13px;font-weight:bold;color:#b45309;text-transform:uppercase;margin-bottom:8px}
+.ad-text{font-size:15px;margin-bottom:10px}
+.ad-link{display:inline-block;background:#007bff;color:#fff;text-decoration:none;padding:8px 16px;border-radius:20px;font-weight:bold;font-size:14px}
 
 @media(min-width:768px){
-    .main-layout{
-        flex-direction:row-reverse;
-        align-items:flex-start;
-        justify-content:center
-    }
-
-    .ad-block{
-        width:300px;
-        min-height:300px;
-        position:sticky;
-        top:15px
-    }
+    .main-layout{flex-direction:row-reverse;align-items:flex-start;justify-content:center}
+    .ad-block{width:300px;min-height:300px;position:sticky;top:15px}
 }
 
-h2{
-    text-align:center;
-    margin-bottom:20px;
-    font-size:20px
-}
+h2{text-align:center;margin-bottom:20px;font-size:20px}
+h3{font-size:17px}
+label{font-weight:bold;display:block;margin-top:15px;margin-bottom:5px;font-size:14px}
 
-h3{
-    font-size:17px
-}
-
-label{
-    font-weight:bold;
-    display:block;
-    margin-top:15px;
-    margin-bottom:5px;
-    font-size:14px
-}
-
-select,
-input,
-button{
+select,input,button{
     width:100%;
     padding:12px;
     border-radius:8px;
@@ -138,12 +37,9 @@ button{
     outline:none
 }
 
-button{
-    cursor:pointer
-}
+button{cursor:pointer}
 
-input:focus,
-select:focus{
+input:focus,select:focus{
     border-color:#007bff;
     box-shadow:0 0 0 2px rgba(0,123,255,.08)
 }
@@ -156,22 +52,11 @@ select:focus{
     height:50px
 }
 
-.btn-send:active{
-    background:#0056b3
-}
+.btn-send:active{background:#0056b3}
 
+.location-search-wrapper{position:relative}
 
-/* ==========================================
-   ПОИСК МЕСТА
-   ========================================== */
-
-.location-search-wrapper{
-    position:relative
-}
-
-#locationSearch{
-    margin-bottom:5px
-}
+#locationSearch{margin-bottom:5px}
 
 .search-results{
     background:#fff;
@@ -193,17 +78,9 @@ select:focus{
     transition:.15s
 }
 
-.search-result:last-child{
-    border-bottom:none
-}
-
-.search-result:hover{
-    background:#f1f5f9
-}
-
-.search-result-name{
-    font-weight:600
-}
+.search-result:last-child{border-bottom:none}
+.search-result:hover{background:#f1f5f9}
+.search-result-name{font-weight:600}
 
 .search-empty{
     padding:14px;
@@ -226,9 +103,7 @@ select:focus{
     margin-bottom:10px
 }
 
-.add-search-location:hover{
-    background:#218838
-}
+.add-search-location:hover{background:#218838}
 
 .selected-location{
     background:#e8f3ff;
@@ -241,14 +116,7 @@ select:focus{
     display:none
 }
 
-.selected-location strong{
-    font-weight:700
-}
-
-
-/* ==========================================
-   FEED
-   ========================================== */
+.selected-location strong{font-weight:700}
 
 .feed-item{
     background:#f8f9fa;
@@ -258,21 +126,20 @@ select:focus{
     margin-bottom:10px
 }
 
-.feed-location{
-    font-weight:bold;
-    font-size:16px
-}
-
-.feed-car{
-    color:#dc3545;
-    font-weight:bold;
-    margin-top:3px
-}
+.feed-location{font-weight:bold;font-size:16px}
+.feed-car{color:#dc3545;font-weight:bold;margin-top:3px}
 
 .feed-time{
     font-size:11px;
     color:#777;
     margin-top:5px
+}
+
+.feed-published{
+    font-size:11px;
+    color:#555;
+    margin-top:3px;
+    font-weight:600
 }
 
 .status-panel{
@@ -293,11 +160,6 @@ select:focus{
     border-radius:6px;
     font-weight:bold
 }
-
-
-/* ==========================================
-   POPUPS
-   ========================================== */
 
 .overlay{
     display:none;
@@ -360,55 +222,24 @@ select:focus{
     cursor:pointer
 }
 
-.hidden{
-    display:none!important
-}
-
-.row{
-    display:flex;
-    gap:10px
-}
-
-.row button{
-    flex:1
-}
-
-.error{
-    color:#dc3545;
-    font-size:13px;
-    margin-top:8px
-}
-
-.success{
-    color:#198754;
-    font-size:13px;
-    margin-top:8px
-}
-
-.empty{
-    text-align:center;
-    color:#777;
-    padding:20px 5px
-}
+.hidden{display:none!important}
+.row{display:flex;gap:10px}
+.row button{flex:1}
+.error{color:#dc3545;font-size:13px;margin-top:8px}
+.success{color:#198754;font-size:13px;margin-top:8px}
+.empty{text-align:center;color:#777;padding:20px 5px}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 </head>
 
 <body>
 
 <div class="main-layout">
 
-    <!-- РЕКЛАМА -->
-
     <div class="ad-block" id="adContainer">
 
-        <img
-            id="adPoster"
-            src=""
-            alt="Реклама"
-        >
+        <img id="adPoster" src="" alt="Реклама">
 
         <div class="ad-content">
 
@@ -416,10 +247,7 @@ select:focus{
                 ⭐ Партнер проекта
             </div>
 
-            <div
-                class="ad-text"
-                id="adDefaultText"
-            >
+            <div class="ad-text" id="adDefaultText">
                 Место под ваш плакат свободно.
             </div>
 
@@ -438,22 +266,12 @@ select:focus{
     </div>
 
 
-    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
-
     <div class="container">
 
-        <h2>
-            🚨 ДПС Железногорск Live
-        </h2>
+        <h2>🚨 ДПС Железногорск Live</h2>
 
 
-        <!-- ==========================================
-             ПОИСК МЕСТА
-             ========================================== -->
-
-        <label>
-            📍 Где стоят?
-        </label>
+        <label>📍 Где стоят?</label>
 
         <div class="location-search-wrapper">
 
@@ -481,83 +299,39 @@ select:focus{
         </div>
 
 
-        <!-- Скрытый select сохраняем для совместимости -->
-
-        <select
-            id="locationSelect"
-            style="display:none"
-        >
-            <option value="">
-                Выберите место
-            </option>
+        <select id="locationSelect" style="display:none">
+            <option value="">Выберите место</option>
         </select>
 
 
-        <!-- АВТОМОБИЛЬ -->
-
-        <label>
-            🚓 Автомобиль?
-        </label>
+        <label>🚓 Автомобиль?</label>
 
         <select id="carSelect">
 
-            <option>
-                УАЗ Патриот
-            </option>
-
-            <option>
-                Ford Focus
-            </option>
-
-            <option>
-                Hyundai Solaris
-            </option>
-
-            <option>
-                VW / Skoda
-            </option>
-
-            <option>
-                Скрытый патруль
-            </option>
+            <option>УАЗ Патриот</option>
+            <option>Ford Focus</option>
+            <option>Hyundai Solaris</option>
+            <option>VW / Skoda</option>
+            <option>Скрытый патруль</option>
 
         </select>
 
 
-        <!-- ОТПРАВКА -->
-
-        <button
-            class="btn-send"
-            id="sendButton"
-        >
+        <button class="btn-send" id="sendButton">
             📢 Сообщить людям
         </button>
-
 
         <div id="messageBox"></div>
 
 
-        <div
-            style="
-                height:1px;
-                background:#eee;
-                margin:20px 0
-            "
-        ></div>
+        <div style="height:1px;background:#eee;margin:20px 0"></div>
 
-
-        <h3>
-            📈 Актуально (20 мин):
-        </h3>
-
+        <h3>📈 Актуально (20 мин):</h3>
 
         <div id="feedContainer"></div>
 
 
-        <button
-            class="btn-admin-trigger"
-            id="adminButton"
-        >
+        <button class="btn-admin-trigger" id="adminButton">
             Панель Разработчика
         </button>
 
@@ -566,20 +340,13 @@ select:focus{
 </div>
 
 
-<!-- ==========================================
-     ДОБАВЛЕНИЕ НОВОГО МЕСТА
-     ========================================== -->
+<!-- ДОБАВЛЕНИЕ МЕСТА -->
 
-<div
-    id="customLocOverlay"
-    class="overlay"
->
+<div id="customLocOverlay" class="overlay">
 
     <div class="popup">
 
-        <h4>
-            Добавить новое место
-        </h4>
+        <h4>Добавить новое место</h4>
 
         <input
             type="text"
@@ -596,10 +363,7 @@ select:focus{
 
             <button
                 id="saveCustom"
-                style="
-                    background:#28a745;
-                    color:#fff
-                "
+                style="background:#28a745;color:#fff"
             >
                 Добавить
             </button>
@@ -611,25 +375,16 @@ select:focus{
 </div>
 
 
-<!-- ==========================================
-     АДМИНКА
-     ========================================== -->
+<!-- АДМИНКА -->
 
-<div
-    id="adminOverlay"
-    class="overlay"
->
+<div id="adminOverlay" class="overlay">
 
     <div class="popup">
 
-        <h4>
-            ⚙️ Управление
-        </h4>
+        <h4>⚙️ Управление</h4>
 
 
-        <label>
-            Ссылка на плакат:
-        </label>
+        <label>Ссылка на плакат:</label>
 
         <input
             type="url"
@@ -638,9 +393,7 @@ select:focus{
         >
 
 
-        <label>
-            Ссылка при нажатии на рекламу:
-        </label>
+        <label>Ссылка при нажатии на рекламу:</label>
 
         <input
             type="url"
@@ -653,20 +406,14 @@ select:focus{
 
             <button
                 id="updateAdBtn"
-                style="
-                    background:#007bff;
-                    color:#fff
-                "
+                style="background:#007bff;color:#fff"
             >
                 Применить
             </button>
 
             <button
                 id="clearAdBtn"
-                style="
-                    background:#6c757d;
-                    color:#fff
-                "
+                style="background:#6c757d;color:#fff"
             >
                 Снять
             </button>
@@ -674,10 +421,7 @@ select:focus{
         </div>
 
 
-        <label>
-            Добавить место:
-        </label>
-
+        <label>Добавить место:</label>
 
         <div class="row">
 
@@ -690,10 +434,7 @@ select:focus{
 
             <button
                 id="adminAddLocation"
-                style="
-                    background:#28a745;
-                    color:#fff
-                "
+                style="background:#28a745;color:#fff"
             >
                 +
             </button>
@@ -701,32 +442,20 @@ select:focus{
         </div>
 
 
-        <label>
-            Удаление мест:
-        </label>
+        <label>Удаление мест:</label>
 
-
-        <div
-            id="adminLocList"
-            class="admin-list"
-        ></div>
+        <div id="adminLocList" class="admin-list"></div>
 
 
         <button
             id="clearOldReports"
-            style="
-                background:#dc3545;
-                color:#fff
-            "
+            style="background:#dc3545;color:#fff"
         >
             Удалить старые сообщения
         </button>
 
 
-        <button
-            id="closeAdmin"
-            style="margin-top:10px"
-        >
+        <button id="closeAdmin" style="margin-top:10px">
             Закрыть
         </button>
 
@@ -738,23 +467,19 @@ select:focus{
 <script>
 
 /* =========================================================
-   SUPABASE
+   НАСТРОЙКИ
    ========================================================= */
 
 const ADMIN_PASS = "13208642";
 
-
 const S_URL =
     "https://seslhhndjqicavaxgjaf.supabase.co";
-
 
 const S_KEY =
     "sb_publishable_weHdvrwyfuVnR8HsFUurmA_sAesJgMK";
 
-
 const REPORT_LIFETIME_MS =
     20 * 60 * 1000;
-
 
 const REPORT_COOLDOWN_MS =
     30 * 1000;
@@ -778,8 +503,19 @@ const $ = id =>
 
 
 /* =========================================================
-   СООБЩЕНИЯ
+   HELPERS
    ========================================================= */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
 
 function showMessage(
     text,
@@ -800,19 +536,8 @@ function showMessage(
 }
 
 
-function escapeHtml(value){
-
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-}
-
-
 /* =========================================================
-   SUPABASE INIT
+   SUPABASE
    ========================================================= */
 
 function initSupabase(){
@@ -825,11 +550,9 @@ function initSupabase(){
                 S_KEY
             );
 
-
         console.log(
             "[DPS] Supabase подключён"
         );
-
 
         return true;
 
@@ -842,20 +565,18 @@ function initSupabase(){
                 ❌ Не удалось подключиться к Supabase.
             </div>`;
 
-
         return false;
     }
 }
 
 
 /* =========================================================
-   РЕКЛАМА
+   НАСТРОЙКИ РЕКЛАМЫ
    ========================================================= */
 
 async function loadSettings(){
 
     if(!sb) return;
-
 
     const {
         data,
@@ -902,7 +623,6 @@ function applyAd(
 
     const img =
         $("adPoster");
-
 
     const link =
         $("adLink");
@@ -1043,7 +763,6 @@ async function updateAd(){
             "Реклама обновлена для всех пользователей."
         );
 
-
     }catch(error){
 
         alert(
@@ -1083,7 +802,6 @@ async function clearAd(){
             ""
         );
 
-
     }catch(error){
 
         alert(
@@ -1098,9 +816,7 @@ async function clearAd(){
    МЕСТА
    ========================================================= */
 
-async function loadLocations(
-    selectName = null
-){
+async function loadLocations(){
 
     if(!sb) return;
 
@@ -1122,7 +838,6 @@ async function loadLocations(
         $("locationSearch").placeholder =
             "Ошибка загрузки мест";
 
-
         return;
     }
 
@@ -1131,49 +846,27 @@ async function loadLocations(
         data || [];
 
 
-    const select =
-        $("locationSelect");
-
-
-    select.innerHTML =
+    $("locationSelect").innerHTML =
         locationsCache
             .map(
                 location =>
-                    `<option
-                        value="${escapeHtml(location.name)}">
-                        ${escapeHtml(location.name)}
+                    `<option value="${escapeHtml(
+                        location.name
+                    )}">
+                        ${escapeHtml(
+                            location.name
+                        )}
                     </option>`
             )
             .join("");
-
-
-    if(
-        selectName &&
-        locationsCache.some(
-            x =>
-                x.name ===
-                selectName
-        )
-    ){
-
-        select.value =
-            selectName;
-
-        chooseLocation(
-            selectName,
-            false
-        );
-    }
 }
 
 
 /* =========================================================
-   ПОИСК МЕСТА
+   ПОИСК
    ========================================================= */
 
-function normalizeSearch(
-    value
-){
+function normalizeSearch(value){
 
     return String(
         value || ""
@@ -1196,11 +889,6 @@ function renderSearchResults(){
         $("searchResults");
 
 
-    /*
-        Если пользователь очистил поле —
-        скрываем результаты.
-    */
-
     if(!query){
 
         results.style.display =
@@ -1222,10 +910,6 @@ function renderSearchResults(){
         );
 
 
-    /*
-        Нашли места
-    */
-
     if(filtered.length){
 
         results.innerHTML =
@@ -1234,11 +918,15 @@ function renderSearchResults(){
                     location =>
                         `<div
                             class="search-result"
-                            data-location="${escapeHtml(location.name)}">
+                            data-location="${escapeHtml(
+                                location.name
+                            )}">
 
                             <div class="search-result-name">
                                 📍
-                                ${escapeHtml(location.name)}
+                                ${escapeHtml(
+                                    location.name
+                                )}
                             </div>
 
                         </div>`
@@ -1262,8 +950,7 @@ function renderSearchResults(){
                         () => {
 
                             chooseLocation(
-                                element.dataset.location,
-                                true
+                                element.dataset.location
                             );
 
                         }
@@ -1276,10 +963,6 @@ function renderSearchResults(){
         return;
     }
 
-
-    /*
-        Ничего не нашли.
-    */
 
     results.innerHTML =
         `
@@ -1311,10 +994,7 @@ function renderSearchResults(){
 }
 
 
-function chooseLocation(
-    name,
-    clearSearch = true
-){
+function chooseLocation(name){
 
     name =
         String(name || "")
@@ -1343,11 +1023,8 @@ function chooseLocation(
         "block";
 
 
-    if(clearSearch){
-
-        $("locationSearch").value =
-            name;
-    }
+    $("locationSearch").value =
+        name;
 
 
     $("searchResults")
@@ -1360,10 +1037,6 @@ function chooseLocation(
         "";
 }
 
-
-/* =========================================================
-   ДОБАВЛЕНИЕ МЕСТА ИЗ ПОИСКА
-   ========================================================= */
 
 async function addLocationFromSearch(){
 
@@ -1386,18 +1059,12 @@ async function addLocationFromSearch(){
     try{
 
         await addLocation(
-            name,
-            true
+            name
         );
 
 
-        $("locationSearch").value =
-            name;
-
-
         chooseLocation(
-            name,
-            true
+            name
         );
 
 
@@ -1416,10 +1083,7 @@ async function addLocationFromSearch(){
 }
 
 
-async function addLocation(
-    name,
-    selectAfter = false
-){
+async function addLocation(name){
 
     name =
         String(name || "")
@@ -1427,45 +1091,31 @@ async function addLocation(
             .replace(/\s+/g," ");
 
 
-    if(name.length < 2){
-
+    if(name.length < 2)
         throw new Error(
             "Введите название места."
         );
-    }
 
 
-    if(name.length > 80){
-
+    if(name.length > 80)
         throw new Error(
             "Название слишком длинное."
         );
-    }
 
 
-    const exists =
-        locationsCache.some(
+    const existing =
+        locationsCache.find(
             x =>
                 x.name.toLowerCase() ===
                 name.toLowerCase()
         );
 
 
-    if(exists){
+    if(existing){
 
-        if(selectAfter){
-
-            chooseLocation(
-                exists
-                    ? locationsCache.find(
-                        x =>
-                            x.name.toLowerCase() ===
-                            name.toLowerCase()
-                    ).name
-                    : name,
-                true
-            );
-        }
+        chooseLocation(
+            existing.name
+        );
 
         return;
     }
@@ -1490,50 +1140,9 @@ async function addLocation(
     await loadLocations();
 
 
-    if(selectAfter){
-
-        chooseLocation(
-            name,
-            true
-        );
-    }
-}
-
-
-/* =========================================================
-   СТАРОЕ ОКНО ДОБАВЛЕНИЯ
-   ========================================================= */
-
-async function saveNewLocation(){
-
-    try{
-
-        const name =
-            $("newLocInput")
-                .value;
-
-
-        await addLocation(
-            name,
-            true
-        );
-
-
-        $("newLocInput").value =
-            "";
-
-
-        closePopup(
-            "customLocOverlay"
-        );
-
-
-    }catch(error){
-
-        alert(
-            error.message
-        );
-    }
+    chooseLocation(
+        name
+    );
 }
 
 
@@ -1738,11 +1347,6 @@ async function deleteLoc(
     await renderAdminLocations();
 
 
-    /*
-        Если удалили выбранное место,
-        сбрасываем выбор.
-    */
-
     if(
         selectedLocation ===
         name
@@ -1752,8 +1356,7 @@ async function deleteLoc(
             "";
 
 
-        $("locationSearch")
-            .value =
+        $("locationSearch").value =
             "";
 
 
@@ -1765,7 +1368,7 @@ async function deleteLoc(
 
 
 /* =========================================================
-   REPORT COOLDOWN
+   REPORT
    ========================================================= */
 
 function getCooldownRemaining(){
@@ -1788,10 +1391,6 @@ function getCooldownRemaining(){
     );
 }
 
-
-/* =========================================================
-   ОТПРАВКА
-   ========================================================= */
 
 async function sendReport(){
 
@@ -1822,8 +1421,7 @@ async function sendReport(){
 
 
     const loc =
-        selectedLocation ||
-        $("locationSelect").value;
+        selectedLocation;
 
 
     const car =
@@ -1955,8 +1553,39 @@ function parseReport(item){
 
 
 /* =========================================================
-   TIME
+   ВРЕМЯ
    ========================================================= */
+
+function formatPublicationTime(
+    dateString
+){
+
+    const date =
+        new Date(
+            dateString
+        );
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "Время неизвестно";
+    }
+
+
+    return date.toLocaleTimeString(
+        "ru-RU",
+        {
+            hour:"2-digit",
+            minute:"2-digit",
+            second:"2-digit"
+        }
+    );
+}
+
 
 function timeAgo(
     dateString
@@ -2129,8 +1758,15 @@ async function loadFeed(){
                                 )}
                             </div>
 
+                            <div class="feed-published">
+                                🕐 Опубликовано в
+                                ${formatPublicationTime(
+                                    item.created_at
+                                )}
+                            </div>
+
                             <div class="feed-time">
-                                ${timeAgo(
+                                ⏱ ${timeAgo(
                                     item.created_at
                                 )}
                             </div>
@@ -2146,9 +1782,7 @@ async function loadFeed(){
                                     <button
                                         class="vote-btn vote-yes"
                                         data-id="${item.id}"
-                                        style="
-                                            background:#e2f0d9
-                                        "
+                                        style="background:#e2f0d9"
                                     >
                                         Да
                                     </button>
@@ -2156,9 +1790,7 @@ async function loadFeed(){
                                     <button
                                         class="vote-btn vote-no"
                                         data-id="${item.id}"
-                                        style="
-                                            background:#fce4d6
-                                        "
+                                        style="background:#fce4d6"
                                     >
                                         Нет
                                     </button>
@@ -2270,43 +1902,10 @@ async function vote(
 
 
 /* =========================================================
-   CLEAR OLD REPORTS
-   ========================================================= */
-
-async function clearOldReports(){
-
-    if(!adminUnlocked)
-        return;
-
-
-    if(
-        !confirm(
-            "Удалить все сообщения старше 20 минут?"
-        )
-    )
-        return;
-
-
-    await cleanupExpiredReports();
-
-    await loadFeed();
-
-
-    alert(
-        "Очистка выполнена."
-    );
-}
-
-
-/* =========================================================
    EVENTS
    ========================================================= */
 
 function setupEvents(){
-
-    /*
-        Поиск при вводе
-    */
 
     $("locationSearch")
         .addEventListener(
@@ -2314,12 +1913,6 @@ function setupEvents(){
             renderSearchResults
         );
 
-
-    /*
-        Enter — если найдено ровно одно место,
-        автоматически выбираем его.
-        Если нет — предлагаем добавить.
-    */
 
     $("locationSearch")
         .addEventListener(
@@ -2361,8 +1954,7 @@ function setupEvents(){
                 ){
 
                     chooseLocation(
-                        matches[0].name,
-                        true
+                        matches[0].name
                     );
 
                 }else if(
@@ -2374,10 +1966,6 @@ function setupEvents(){
             }
         );
 
-
-    /*
-        Клик вне поиска закрывает список
-    */
 
     document.addEventListener(
         "click",
@@ -2487,7 +2075,6 @@ function setupEvents(){
 
                     await renderAdminLocations();
 
-
                 }catch(error){
 
                     alert(
@@ -2588,10 +2175,6 @@ async function init(){
 
     ]);
 
-
-    /*
-        Автообновление каждые 15 секунд
-    */
 
     setInterval(
         async () => {
