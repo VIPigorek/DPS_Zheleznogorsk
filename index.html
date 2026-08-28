@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -7,12 +7,7 @@
 <title>ДПС Железногорск Live</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 
 body{
     background:#f0f2f5;
@@ -151,6 +146,32 @@ button{
 
 .btn-send:active{
     background:#0056b3
+}
+
+/* ОНЛАЙН */
+
+.online-panel{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:7px;
+    margin:-8px 0 18px;
+    font-size:13px;
+    color:#666
+}
+
+.online-dot{
+    width:9px;
+    height:9px;
+    background:#28a745;
+    border-radius:50%;
+    display:inline-block;
+    box-shadow:0 0 0 3px rgba(40,167,69,.12)
+}
+
+#onlineCount{
+    font-weight:bold;
+    color:#198754
 }
 
 /* ПОИСК */
@@ -347,313 +368,293 @@ button{
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 </head>
 
 <body>
 
 <div class="main-layout">
 
-```
-<!-- РЕКЛАМА -->
-<div class="ad-block">
+    <div class="ad-block">
 
-    <img id="adPoster" src="" alt="Реклама">
+        <img id="adPoster" src="" alt="Реклама">
 
-    <div class="ad-content">
+        <div class="ad-content">
 
-        <div class="ad-title">
-            ⭐ Партнер проекта
+            <div class="ad-title">
+                ⭐ Партнер проекта
+            </div>
+
+            <div class="ad-text" id="adDefaultText">
+                Место под ваш плакат свободно.
+            </div>
+
+            <a
+                id="adLink"
+                href="https://t.me/%2BKNvkq0hnj1szOTFi"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ad-link"
+            >
+                Купить рекламу
+            </a>
+
         </div>
-
-        <div class="ad-text" id="adDefaultText">
-            Место под ваш плакат свободно.
-        </div>
-
-        <a
-            id="adLink"
-            href="https://t.me/%2BKNvkq0hnj1szOTFi"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="ad-link"
-        >
-            Купить рекламу
-        </a>
-
     </div>
-</div>
 
 
-<!-- ОСНОВНОЙ БЛОК -->
-<div class="container">
+    <div class="container">
 
-    <h2>
-        🚨 ДПС Железногорск Live
-    </h2>
+        <h2>
+            🚨 ДПС Железногорск Live
+        </h2>
+
+        <!-- СЧЁТЧИК ОНЛАЙНА -->
+        <div class="online-panel">
+            <span class="online-dot"></span>
+            Сейчас на сайте:
+            <span id="onlineCount">1</span>
+        </div>
 
 
-    <!-- ПОИСК МЕСТА -->
-    <label>
-        📍 Где стоят?
-    </label>
+        <label>
+            📍 Где стоят?
+        </label>
 
-    <div class="search-wrap">
+        <div class="search-wrap">
 
-        <input
-            type="text"
-            id="locationSearch"
-            placeholder="Начните вводить улицу или место..."
-            autocomplete="off"
+            <input
+                type="text"
+                id="locationSearch"
+                placeholder="Начните вводить улицу или место..."
+                autocomplete="off"
+            >
+
+            <div
+                id="searchResults"
+                class="search-results"
+            ></div>
+
+            <div
+                id="selectedLocation"
+                class="selected-location"
+            >
+                📍 Выбрано:
+                <b id="selectedLocationName"></b>
+            </div>
+
+        </div>
+
+
+        <label>
+            🚓 Автомобиль?
+        </label>
+
+        <select id="carSelect">
+
+            <option>УАЗ Патриот</option>
+            <option>Ford Focus</option>
+            <option>Hyundai Solaris</option>
+            <option>VW / Skoda</option>
+            <option>Скрытый патруль</option>
+
+        </select>
+
+
+        <button
+            class="btn-send"
+            id="sendButton"
         >
+            📢 Сообщить людям
+        </button>
+
+        <div id="messageBox"></div>
+
 
         <div
-            id="searchResults"
-            class="search-results"
+            style="
+                height:1px;
+                background:#eee;
+                margin:20px 0
+            "
         ></div>
 
-        <div
-            id="selectedLocation"
-            class="selected-location"
+
+        <h3>
+            📈 Актуально (1 час):
+        </h3>
+
+        <div id="feedContainer"></div>
+
+
+        <button
+            class="btn-admin-trigger"
+            id="adminButton"
         >
-            📍 Выбрано:
-            <b id="selectedLocationName"></b>
-        </div>
+            Панель Разработчика
+        </button>
 
     </div>
-
-
-    <!-- АВТОМОБИЛЬ -->
-    <label>
-        🚓 Автомобиль?
-    </label>
-
-    <select id="carSelect">
-
-        <option>
-            УАЗ Патриот
-        </option>
-
-        <option>
-            Ford Focus
-        </option>
-
-        <option>
-            Hyundai Solaris
-        </option>
-
-        <option>
-            VW / Skoda
-        </option>
-
-        <option>
-            Скрытый патруль
-        </option>
-
-    </select>
-
-
-    <button
-        class="btn-send"
-        id="sendButton"
-    >
-        📢 Сообщить людям
-    </button>
-
-    <div id="messageBox"></div>
-
-
-    <div
-        style="
-            height:1px;
-            background:#eee;
-            margin:20px 0
-        "
-    ></div>
-
-
-    <h3>
-        📈 Актуально (20 мин):
-    </h3>
-
-    <div id="feedContainer"></div>
-
-
-    <button
-        class="btn-admin-trigger"
-        id="adminButton"
-    >
-        Панель Разработчика
-    </button>
-
-</div>
-```
-
 </div>
 
-<!-- ДОБАВЛЕНИЕ МЕСТА -->
 
 <div
     id="customLocOverlay"
     class="overlay"
 >
 
-```
-<div class="popup">
+    <div class="popup">
 
-    <h4>
-        Добавить новое место
-    </h4>
+        <h4>
+            Добавить новое место
+        </h4>
 
-    <input
-        type="text"
-        id="newLocInput"
-        maxlength="80"
-        placeholder="Название улицы или ориентир"
-    >
-
-    <div class="row">
-
-        <button id="cancelCustom">
-            Отмена
-        </button>
-
-        <button
-            id="saveCustom"
-            style="
-                background:#28a745;
-                color:#fff
-            "
+        <input
+            type="text"
+            id="newLocInput"
+            maxlength="80"
+            placeholder="Название улицы или ориентир"
         >
-            Добавить
-        </button>
+
+        <div class="row">
+
+            <button id="cancelCustom">
+                Отмена
+            </button>
+
+            <button
+                id="saveCustom"
+                style="
+                    background:#28a745;
+                    color:#fff
+                "
+            >
+                Добавить
+            </button>
+
+        </div>
 
     </div>
 
 </div>
-```
 
-</div>
-
-<!-- АДМИНКА -->
 
 <div
     id="adminOverlay"
     class="overlay"
 >
 
-```
-<div class="popup">
+    <div class="popup">
 
-    <h4>
-        ⚙️ Управление
-    </h4>
-
-
-    <label>
-        Ссылка на плакат:
-    </label>
-
-    <input
-        type="url"
-        id="adUrlInput"
-        placeholder="https://..."
-    >
+        <h4>
+            ⚙️ Управление
+        </h4>
 
 
-    <label>
-        Ссылка при нажатии на рекламу:
-    </label>
-
-    <input
-        type="url"
-        id="adTargetInput"
-        placeholder="https://..."
-    >
-
-
-    <div class="row">
-
-        <button
-            id="updateAdBtn"
-            style="
-                background:#007bff;
-                color:#fff
-            "
-        >
-            Применить
-        </button>
-
-        <button
-            id="clearAdBtn"
-            style="
-                background:#6c757d;
-                color:#fff
-            "
-        >
-            Снять
-        </button>
-
-    </div>
-
-
-    <label>
-        Добавить место:
-    </label>
-
-    <div class="row">
+        <label>
+            Ссылка на плакат:
+        </label>
 
         <input
-            type="text"
-            id="adminNewLocation"
-            maxlength="80"
-            placeholder="Новое место"
+            type="url"
+            id="adUrlInput"
+            placeholder="https://..."
         >
 
+
+        <label>
+            Ссылка при нажатии на рекламу:
+        </label>
+
+        <input
+            type="url"
+            id="adTargetInput"
+            placeholder="https://..."
+        >
+
+
+        <div class="row">
+
+            <button
+                id="updateAdBtn"
+                style="
+                    background:#007bff;
+                    color:#fff
+                "
+            >
+                Применить
+            </button>
+
+            <button
+                id="clearAdBtn"
+                style="
+                    background:#6c757d;
+                    color:#fff
+                "
+            >
+                Снять
+            </button>
+
+        </div>
+
+
+        <label>
+            Добавить место:
+        </label>
+
+        <div class="row">
+
+            <input
+                type="text"
+                id="adminNewLocation"
+                maxlength="80"
+                placeholder="Новое место"
+            >
+
+            <button
+                id="adminAddLocation"
+                style="
+                    background:#28a745;
+                    color:#fff
+                "
+            >
+                +
+            </button>
+
+        </div>
+
+
+        <label>
+            Удаление мест:
+        </label>
+
+        <div
+            id="adminLocList"
+            class="admin-list"
+        ></div>
+
+
         <button
-            id="adminAddLocation"
+            id="clearOldReports"
             style="
-                background:#28a745;
+                background:#dc3545;
                 color:#fff
             "
         >
-            +
+            Удалить старые сообщения
+        </button>
+
+
+        <button
+            id="closeAdmin"
+            style="margin-top:10px"
+        >
+            Закрыть
         </button>
 
     </div>
 
-
-    <label>
-        Удаление мест:
-    </label>
-
-    <div
-        id="adminLocList"
-        class="admin-list"
-    ></div>
-
-
-    <button
-        id="clearOldReports"
-        style="
-            background:#dc3545;
-            color:#fff
-        "
-    >
-        Удалить старые сообщения
-    </button>
-
-
-    <button
-        id="closeAdmin"
-        style="margin-top:10px"
-    >
-        Закрыть
-    </button>
-
 </div>
-```
 
-</div>
 
 <script>
 
@@ -669,19 +670,21 @@ const S_URL =
 const S_KEY =
     "sb_publishable_weHdvrwyfuVnR8HsFUurmA_sAesJgMK";
 
-
-/* Ссылка покупки рекламы */
-
 const DEFAULT_AD_TARGET =
     "https://t.me/%2BKNvkq0hnj1szOTFi";
 
+/* ИЗМЕНЕНО: было 20 минут, теперь 1 час */
 
 const REPORT_LIFETIME_MS =
-    20 * 60 * 1000;
+    60 * 60 * 1000;
 
 const REPORT_COOLDOWN_MS =
     30 * 1000;
 
+
+/* =========================================================
+   ПЕРЕМЕННЫЕ
+========================================================= */
 
 let sb = null;
 
@@ -690,6 +693,8 @@ let locationsCache = [];
 let selectedLocationValue = "";
 
 let adminUnlocked = false;
+
+let onlineChannel = null;
 
 
 /* =========================================================
@@ -757,7 +762,6 @@ function initSupabase(){
 
         }
 
-
         if(
             !window.supabase ||
             typeof window.supabase.createClient !== "function"
@@ -769,13 +773,11 @@ function initSupabase(){
 
         }
 
-
         sb =
             window.supabase.createClient(
                 S_URL,
                 S_KEY
             );
-
 
         return true;
 
@@ -798,6 +800,183 @@ function initSupabase(){
             </div>`;
 
         return false;
+    }
+}
+
+
+/* =========================================================
+   ОНЛАЙН
+   Supabase Realtime Presence
+========================================================= */
+
+async function initOnlineCounter(){
+
+    if(!sb)
+        return;
+
+
+    try{
+
+        const channelName =
+            "dps-zheleznogorsk-online";
+
+        onlineChannel =
+            sb.channel(
+                channelName,
+                {
+                    config:{
+                        presence:{
+                            key:
+                                crypto.randomUUID
+                                ?
+                                crypto.randomUUID()
+                                :
+                                String(
+                                    Date.now()
+                                ) +
+                                Math.random()
+                        }
+                    }
+                }
+            );
+
+
+        onlineChannel.on(
+            "presence",
+            {
+                event:"sync"
+            },
+            () => {
+
+                updateOnlineCount();
+
+            }
+        );
+
+
+        onlineChannel.on(
+            "presence",
+            {
+                event:"join"
+            },
+            () => {
+
+                updateOnlineCount();
+
+            }
+        );
+
+
+        onlineChannel.on(
+            "presence",
+            {
+                event:"leave"
+            },
+            () => {
+
+                updateOnlineCount();
+
+            }
+        );
+
+
+        await onlineChannel.subscribe(
+            async status => {
+
+                if(
+                    status === "SUBSCRIBED"
+                ){
+
+                    await onlineChannel.track({
+
+                        online:true,
+
+                        joined_at:
+                            new Date()
+                                .toISOString()
+
+                    });
+
+
+                    updateOnlineCount();
+                }
+
+            }
+        );
+
+    }catch(error){
+
+        console.warn(
+            "Счётчик онлайна:",
+            error
+        );
+
+        $("onlineCount")
+            .textContent =
+            "1";
+    }
+}
+
+
+function updateOnlineCount(){
+
+    if(!onlineChannel){
+
+        $("onlineCount")
+            .textContent =
+            "1";
+
+        return;
+    }
+
+
+    try{
+
+        const state =
+            onlineChannel.presenceState();
+
+
+        let count = 0;
+
+
+        Object.keys(state)
+            .forEach(
+                key => {
+
+                    const users =
+                        state[key];
+
+                    if(
+                        Array.isArray(users)
+                    ){
+
+                        count +=
+                            users.length;
+
+                    }else{
+
+                        count++;
+
+                    }
+
+                }
+            );
+
+
+        $("onlineCount")
+            .textContent =
+            String(
+                Math.max(
+                    1,
+                    count
+                )
+            );
+
+    }catch(error){
+
+        $("onlineCount")
+            .textContent =
+            "1";
     }
 }
 
@@ -909,9 +1088,7 @@ async function loadSettings(){
 
     }catch(error){
 
-        console.warn(
-            error
-        );
+        console.warn(error);
 
         applyAd(
             "",
@@ -1072,7 +1249,7 @@ async function clearAd(){
 
 
 /* =========================================================
-   ЗАГРУЗКА МЕСТ
+   МЕСТА
 ========================================================= */
 
 async function loadLocations(){
@@ -1099,7 +1276,8 @@ async function loadLocations(){
 
         locationsCache = [];
 
-        $("searchResults").style.display =
+        $("searchResults")
+            .style.display =
             "none";
 
         return;
@@ -1117,7 +1295,7 @@ async function loadLocations(){
 
 
 /* =========================================================
-   ПОИСК МЕСТА
+   ПОИСК
 ========================================================= */
 
 function normalizeText(
@@ -1231,11 +1409,6 @@ function renderSearchResults(
     }
 
 
-    /*
-       Если ничего не найдено —
-       появляется кнопка добавления.
-    */
-
     if(
         q &&
         filtered.length === 0
@@ -1251,11 +1424,6 @@ function renderSearchResults(
 
     }
 
-
-    /*
-       Если поле пустое,
-       показываем существующие места.
-    */
 
     if(
         !q &&
@@ -1376,12 +1544,16 @@ async function addLocation(
 
     if(exists){
 
-        selectLocation(
+        const found =
             locationsCache.find(
                 x =>
                     normalizeText(x.name) ===
                     normalizeText(name)
-            ).name
+            );
+
+
+        selectLocation(
+            found.name
         );
 
         return;
@@ -1436,8 +1608,101 @@ async function saveNewLocation(){
 
 
 /* =========================================================
-   АДМИНКА МЕСТ
+   АДМИНКА
 ========================================================= */
+
+function closePopup(
+    id
+){
+
+    $(id).style.display =
+        "none";
+}
+
+
+async function openAdmin(){
+
+    const pass =
+        prompt("Пароль:");
+
+
+    if(
+        pass !== ADMIN_PASS
+    ){
+
+        alert(
+            "Неверный пароль."
+        );
+
+        return;
+    }
+
+
+    adminUnlocked =
+        true;
+
+
+    $("adminOverlay")
+        .style.display =
+        "flex";
+
+
+    await renderAdminLocations();
+
+    await loadSettingsIntoAdmin();
+}
+
+
+async function loadSettingsIntoAdmin(){
+
+    if(!sb) return;
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+            await sb
+                .from("app_settings")
+                .select("key,value");
+
+
+        if(error)
+            throw error;
+
+
+        const settings =
+            Object.fromEntries(
+                (data || []).map(
+                    x => [
+                        x.key,
+                        x.value
+                    ]
+                )
+            );
+
+
+        $("adUrlInput").value =
+            settings.ad_url || "";
+
+
+        $("adTargetInput").value =
+            settings.ad_target ||
+            DEFAULT_AD_TARGET;
+
+    }catch(error){
+
+        console.warn(
+            error.message
+        );
+
+        $("adTargetInput").value =
+            DEFAULT_AD_TARGET;
+    }
+}
+
 
 async function renderAdminLocations(){
 
@@ -1562,104 +1827,7 @@ async function deleteLoc(
 
 
 /* =========================================================
-   АДМИНКА
-========================================================= */
-
-function closePopup(
-    id
-){
-
-    $(id).style.display =
-        "none";
-}
-
-
-async function openAdmin(){
-
-    const pass =
-        prompt("Пароль:");
-
-
-    if(
-        pass !== ADMIN_PASS
-    ){
-
-        alert(
-            "Неверный пароль."
-        );
-
-        return;
-    }
-
-
-    adminUnlocked =
-        true;
-
-
-    $("adminOverlay")
-        .style.display =
-        "flex";
-
-
-    await renderAdminLocations();
-
-    await loadSettingsIntoAdmin();
-}
-
-
-async function loadSettingsIntoAdmin(){
-
-    if(!sb) return;
-
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-            await sb
-                .from("app_settings")
-                .select("key,value");
-
-
-        if(error)
-            throw error;
-
-
-        const settings =
-            Object.fromEntries(
-                (data || []).map(
-                    x => [
-                        x.key,
-                        x.value
-                    ]
-                )
-            );
-
-
-        $("adUrlInput").value =
-            settings.ad_url || "";
-
-
-        $("adTargetInput").value =
-            settings.ad_target ||
-            DEFAULT_AD_TARGET;
-
-    }catch(error){
-
-        console.warn(
-            error.message
-        );
-
-        $("adTargetInput").value =
-            DEFAULT_AD_TARGET;
-    }
-}
-
-
-/* =========================================================
-   ОТПРАВКА СООБЩЕНИЯ
+   ОТПРАВКА
 ========================================================= */
 
 function getCooldownRemaining(){
@@ -1748,9 +1916,7 @@ async function sendReport(){
 
     if(error){
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         showMessage(
             "Не удалось отправить сообщение: " +
@@ -1778,7 +1944,7 @@ async function sendReport(){
 
 
 /* =========================================================
-   ПАРСИНГ СООБЩЕНИЙ
+   ПАРСИНГ
 ========================================================= */
 
 function parseReport(
@@ -1902,6 +2068,7 @@ function publicationTime(
 
 /* =========================================================
    ОЧИСТКА СТАРЫХ
+   ТЕПЕРЬ 1 ЧАС
 ========================================================= */
 
 async function cleanupExpiredReports(){
@@ -1975,9 +2142,7 @@ async function loadFeed(){
 
     if(error){
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         $("feedContainer").innerHTML =
             `<div class="empty">
@@ -2188,7 +2353,7 @@ async function vote(
 
 
 /* =========================================================
-   АДМИН — ОЧИСТКА
+   ОЧИСТКА АДМИНОМ
 ========================================================= */
 
 async function clearOldReports(){
@@ -2199,7 +2364,7 @@ async function clearOldReports(){
 
     if(
         !confirm(
-            "Удалить все сообщения старше 20 минут?"
+            "Удалить все сообщения старше 1 часа?"
         )
     )
         return;
@@ -2221,8 +2386,6 @@ async function clearOldReports(){
 ========================================================= */
 
 function setupEvents(){
-
-    /* Поиск */
 
     $("locationSearch")
         .addEventListener(
@@ -2255,8 +2418,6 @@ function setupEvents(){
             }
         );
 
-
-    /* Enter */
 
     $("locationSearch")
         .addEventListener(
@@ -2306,8 +2467,6 @@ function setupEvents(){
         );
 
 
-    /* Отправка */
-
     $("sendButton")
         .addEventListener(
             "click",
@@ -2315,16 +2474,12 @@ function setupEvents(){
         );
 
 
-    /* Админка */
-
     $("adminButton")
         .addEventListener(
             "click",
             openAdmin
         );
 
-
-    /* Добавление места */
 
     $("cancelCustom")
         .addEventListener(
@@ -2367,8 +2522,6 @@ function setupEvents(){
         );
 
 
-    /* Реклама */
-
     $("updateAdBtn")
         .addEventListener(
             "click",
@@ -2382,8 +2535,6 @@ function setupEvents(){
             clearAd
         );
 
-
-    /* Добавление места админом */
 
     $("adminAddLocation")
         .addEventListener(
@@ -2414,16 +2565,12 @@ function setupEvents(){
         );
 
 
-    /* Очистка */
-
     $("clearOldReports")
         .addEventListener(
             "click",
             clearOldReports
         );
 
-
-    /* Закрытие админки */
 
     $("closeAdmin")
         .addEventListener(
@@ -2440,8 +2587,6 @@ function setupEvents(){
             }
         );
 
-
-    /* Клик вне окна */
 
     document
         .querySelectorAll(".overlay")
@@ -2468,8 +2613,6 @@ function setupEvents(){
             }
         );
 
-
-    /* Закрытие поиска кликом вне */
 
     document.addEventListener(
         "click",
@@ -2506,11 +2649,6 @@ async function init(){
     setupEvents();
 
 
-    /*
-       Сразу устанавливаем
-       рабочую ссылку рекламы.
-    */
-
     applyAd(
         "",
         DEFAULT_AD_TARGET
@@ -2536,9 +2674,10 @@ async function init(){
     ]);
 
 
-    /*
-       Обновление каждые 15 секунд.
-    */
+    /* Запуск счётчика онлайна */
+
+    await initOnlineCounter();
+
 
     setInterval(
         async () => {
@@ -2548,6 +2687,8 @@ async function init(){
             await loadFeed();
 
             await loadSettings();
+
+            updateOnlineCount();
 
         },
         15000
@@ -2561,3 +2702,4 @@ init();
 
 </body>
 </html>
+```
